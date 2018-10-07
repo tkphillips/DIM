@@ -160,6 +160,7 @@ while True:
     screen.blit(imgButton, (300,300))
     screen.blit(imgButton, (150,300))
     screen.blit(imgButton, (150,375))
+    screen.blit(imgButton, (300,375))
     #display update
     pygame.display.update()
     #clock update
