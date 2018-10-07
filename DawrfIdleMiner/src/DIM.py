@@ -37,12 +37,19 @@ outlineProgresBarx = 30
 outlineProgresBary = 100
 
 #functions
+#def progressBar(defaultTime, modifier ):
 
+def mining(Miner, Materials):
+    Materials.wood = Miner.num * .01
+    Materials.iron = Miners.num * .05
+
+class Materials:
+    wood = 0
+    iron = 0
 class Miner:
     num = 0
-    mineRate = 1.07
-    speed = num * .93
-    cost = 10 * mineRate**num
+    costRate = 1.07
+    cost = 10 * costRate**num
     def buy_miner(self):
         Miner.num = Miner.num + 1
         global gCount
@@ -56,6 +63,7 @@ class Miner:
 while True:
 
     miner = Miner()
+    materials = Materials()
 
 
     #globalTime += dt
