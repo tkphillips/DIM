@@ -36,6 +36,7 @@ baseGoldRate = 10
 goldModifier = 1
 outlineProgresBarx = 100
 outlineProgresBary = 150
+woodCost = 5
 
 #functions
 #def progressBar(defaultTime, modifier ):
@@ -46,9 +47,9 @@ class Materials:
     wood = 0
     iron = 0
 class Miner:
-    num = 0
+    num = 1
     costRate = 1.07
-    cost = 10 * (costRate**num)
+    cost = 10 * (costRate**(num-1))
     def buy_miner(self):
         Miner.num = Miner.num + 1
         global gCount
@@ -92,10 +93,21 @@ while True:
             else:
                 width = maxWidth
             mining(Miner, Materials)
-            gCount = gCount + (baseGoldRate * goldModifier)
 
-    if gCount >= miner.cost:
-        miner.buy_miner()
+    # buy miner button loop
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if 300 + 96 > mouse[0] > 300 and 300 + 48 > mouse[1] > 300:
+        if click[0] == 1 and gCount >= miner.cost:
+            miner.buy_miner()
+
+    #sell Wood Button
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
+        if click[0] == 1 and materials.wood > 1:
+            materials.wood = materials.wood - 1
+            gCount = gCount + woodCost
 
 
     #push
@@ -108,16 +120,19 @@ while True:
     minerText = myfont.render("Miners: {0}".format(miner.num), 1, (0,0,0))
     woodText = myfont.render("Wood: {0}".format(materials.wood), 1, (0,0,0))
     ironText = myfont.render("Iron: {0}".format(materials.iron), 1, (0,0,0))
+    buyMinerText = myfont.render("Buy Miner Gold: {0}".format(miner.cost), 1, (0,0,0))
     screen.blit(modifierText, (5, 30))
     screen.blit(goldText, (5, 10))
     screen.blit(minerText, (5,50))
     screen.blit(woodText, (5, 70))
     screen.blit(ironText, (5, 90))
+    screen.blit(buyMinerText, (5, 110))
     #drawSprites
     croppedProgress.blit(imgProgressBar,(0,0))
     screen.blit(croppedProgress, (outlineProgresBarx + 36 ,outlineProgresBary + 30))
     screen.blit(imgProgressBarOutline, (outlineProgresBarx,outlineProgresBary))
     screen.blit(imgButton, (300,300))
+    screen.blit(imgButton, (150,300))
     #display update
     pygame.display.update()
     #clock update
