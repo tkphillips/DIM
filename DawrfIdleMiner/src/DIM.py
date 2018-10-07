@@ -9,7 +9,7 @@ pygame.display.set_caption('Dwarf Idle Miner')
 #clock
 clock = pygame.time.Clock()
 #colors
-BACKGROUND_COLOR = (237, 225, 192)
+BACKGROUND_COLOR = (222,184,135)
 LIGHT_GRAY = (120, 120, 120)
 BLACK = (0,0,0)
 myfont = pygame.font.SysFont("monospace", 16)
@@ -33,7 +33,7 @@ globalTime = 0
 gCount = 0
 baseGoldRate = 1
 goldModifier = 1
-outlineProgresBarx = 30
+outlineProgresBarx = 100
 outlineProgresBary = 100
 
 #functions
@@ -98,9 +98,13 @@ while True:
     goldText = myfont.render("Gold: {0}".format(int(gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
     minerText = myfont.render("Miners: {0}".format(miner.num), 1, (0,0,0))
+    woodText = myfont.render("Wood: {0}".format(materials.wood), 1, (0,0,0))
+    ironText = myfont.render("Iron: {0}".format(materials.iron), 1, (0,0,0))
     screen.blit(modifierText, (5, 30))
     screen.blit(goldText, (5, 10))
     screen.blit(minerText, (5,50))
+    screen.blit(woodText, (5, 70))
+    screen.blit(ironText, (5, 90))
     #drawSprites
     croppedProgress.blit(imgProgressBar,(0,0))
     screen.blit(croppedProgress, (outlineProgresBarx + 36 ,outlineProgresBary + 30))
