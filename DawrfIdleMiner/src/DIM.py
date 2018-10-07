@@ -144,31 +144,40 @@ while True:
     # buy miner button loop
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    if 300 + 96 > mouse[0] > 300 and 300 + 48 > mouse[1] > 300:
-        if event.type == pygame.MOUSEBUTTONDOWN and gCount >= miner.cost and down == False:
-            miner.buy_miner()
-            down = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            down = False
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 300 + 96 > mouse[0] > 300 and 300 + 48 > mouse[1] > 300:
+                if gCount >= miner.cost and down == False:
+                    miner.buy_miner()
+                    down = True
+
 
     #sell Wood Button
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
-        if event.type == pygame.MOUSEBUTTONDOWN and materials.wood >= 1 and down == False:
-            materials.sell_wood()
-            down = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            down = False
-    #sell Wood Button
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if 150 + 96 > mouse[0] > 150 and 375 + 48 > mouse[1] > 375:
-        if event.type == pygame.MOUSEBUTTONDOWN and materials.iron >= 1 and down == False:
-                materials.sell_iron()
-                down = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            down = False
+            elif 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
+               if materials.wood >= 1 and down == False:
+                   materials.sell_wood()
+                   down = True
+
+       #sell Wood Button
+            elif 150 + 96 > mouse[0] > 150 and 375 + 48 > mouse[1] > 375:
+               if materials.iron >= 1 and down == False:
+                   materials.sell_iron()
+                   down = True
+       #unpress if statement
+        elif event.type == pygame.MOUSEBUTTONUP:
+                down = False
+            #check quit
+        elif event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+    #Doing damage
+    do_damage(warrior, enemy)
+    if enemy.currHealth <= 0:
+        enemy.death()
+    #Enemy
+    if enemy.num == 0:
+        enemy = Enemy()
 
 
 
@@ -201,10 +210,3 @@ while True:
     pygame.display.update()
     #clock update
     dt = clock.tick(60) / float(1000)
-
-    #exit loop
-    for event in pygame.event.get():
-        #check quit
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
