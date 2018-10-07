@@ -75,13 +75,8 @@ class Warrior:
     num = 0
     costRate = 1.07
     cost = 10 * (costRate**num)
-<<<<<<< HEAD
-    damage = 1 * num
+    damage = 100
     def buy_warrior(self):
-=======
-    damage = 1
-    def buy_warroir(self):
->>>>>>> 02168eb6d4f2e5d480bf2f4230a4635b31bd60d8
         Warrior.num += 1
         global gCount
         gCount -= Warrior.cost
@@ -92,6 +87,7 @@ class Enemy:
     num = 0
     def __init__(self):
         self.startHealth = random.randint(10,50)
+        self.currHealth = self.startHealth
         self.num = 1
     def death(self):
         global gCount
@@ -140,10 +136,10 @@ while True:
             mining(Miner, Materials)
             #Doing damage
             do_damage(warrior, enemy)
-            if enemy.currHealth <= 0:
+            if enemy.num == 1 and enemy.currHealth <= 0:
                 enemy.death()
             #Enemy
-            if enemy.num == 0:
+            elif enemy.num == 0:
                 enemy = Enemy()
 
     # buy miner button loop
@@ -180,8 +176,6 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-<<<<<<< HEAD
-=======
 
     #Doing damage
     do_damage(warrior, enemy)
@@ -191,7 +185,6 @@ while True:
     if enemy.num == 0:
         enemy = Enemy()
 
->>>>>>> 02168eb6d4f2e5d480bf2f4230a4635b31bd60d8
 
 
     #push
