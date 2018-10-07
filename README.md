@@ -1,0 +1,2 @@
+# DIM
+Dwarf Idle Miner
