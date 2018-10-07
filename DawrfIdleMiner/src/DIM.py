@@ -44,8 +44,8 @@ def mining(Miner, Materials):
     Materials.iron = Miners.num * .05
 
 class Materials:
-    wood = 0
-    iron = 0
+    Floor(wood) = 0
+    Floor(iron) = 0
 class Miner:
     num = 0
     costRate = 1.07
