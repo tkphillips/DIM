@@ -46,6 +46,11 @@ woodCost = 5
 class Materials:
     wood = 0
     iron = 0
+    def sell_wood(self):
+        global gCount
+        global woodCost
+        gCount += woodCost
+        Materials.wood -= 1
 class Miner:
     num = 1
     costRate = 1.07
@@ -106,8 +111,12 @@ while True:
     click = pygame.mouse.get_pressed()
     if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
         if click[0] == 1 and materials.wood >= 1:
+<<<<<<< HEAD
             materials.wood = materials.wood - 1
             gCount = gCount + woodCost
+=======
+            materials.sell_wood()
+>>>>>>> 15e6d5ba6d565f3ddc03639d5c8b39996149e09a
 
 
     #push
