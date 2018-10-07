@@ -39,6 +39,7 @@ outlineProgresBary = 150
 woodCost = 5
 ironCost = 10
 down = False
+enemyNum = 1
 
 
 #def progressBar(defaultTime, modifier ):
@@ -75,7 +76,7 @@ class Warrior:
     num = 0
     costRate = 1.07
     cost = 10 * (costRate**num)
-    damage = 100
+    damage = 10
     def buy_warrior(self):
         Warrior.num += 1
         global gCount
@@ -91,7 +92,9 @@ class Enemy:
         self.num = 1
     def death(self):
         global gCount
-        gCount += (self.startHealth % 10)
+        gCount += int(self.startHealth % 10)
+        global enemyNum
+        enemyNum = 0
         del self
 
 #functions
@@ -136,11 +139,11 @@ while True:
             mining(Miner, Materials)
             #Doing damage
             do_damage(warrior, enemy)
-            if enemy.num == 1 and enemy.currHealth <= 0:
+            if enemyNum == 1 and enemy.currHealth <= 0:
                 enemy.death()
+                enemyNum = 1
             #Enemy
-            elif enemy.num == 0:
-                enemy = Enemy()
+
 
     # buy miner button loop
     mouse = pygame.mouse.get_pos()
