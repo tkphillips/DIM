@@ -133,6 +133,13 @@ while True:
             else:
                 width = maxWidth
             mining(Miner, Materials)
+            #Doing damage
+            do_damage(warrior, enemy)
+            if enemy.currHealth <= 0:
+                enemy.death()
+            #Enemy
+            if enemy.num == 0:
+                enemy = Enemy()
 
     # buy miner button loop
     mouse = pygame.mouse.get_pos()
@@ -162,13 +169,7 @@ while True:
                 down = True
         if event.type == pygame.MOUSEBUTTONUP:
             down = False
-    #Doing damage
-    do_damage(warrior, enemy)
-    if enemy.currHealth <= 0:
-        enemy.death()
-    #Enemy
-    if enemy.num == 0:
-        enemy = Enemy()
+
 
 
     #push
