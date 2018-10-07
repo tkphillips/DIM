@@ -1,4 +1,4 @@
-import pygame, sys, time, os
+import pygame, sys, time, os, random
 from pygame.locals import*
 
 pygame.init()
@@ -38,11 +38,11 @@ outlineProgresBarx = 100
 outlineProgresBary = 150
 woodCost = 5
 
-#functions
+
 #def progressBar(defaultTime, modifier ):
 
 
-
+#Classes
 class Materials:
     wood = 0
     iron = 0
@@ -51,6 +51,7 @@ class Materials:
         global woodCost
         gCount += woodCost
         Materials.wood -= 1
+
 class Miner:
     num = 1
     costRate = 1.07
@@ -64,9 +65,35 @@ class Miner:
     def num_miner(self):
         return Miner.num
 
+class Warrior:
+    num = 0
+    costRate = 1.07
+    cost = 10 * (costRate**num)
+    damage = 1 * num
+    def buy_warroir(self):
+        Warrior.num += 1
+        global gCount
+        gCount -= Warrior.cost
+        Warrior.cost = 10 * (Warrior.costRate**Warrior.num)
+class Enemy:
+    currHealth = 0
+    startHealth = 0
+    num = 0
+    def __init__(self):
+        self.startHealth = random.randint(10,50)
+        self.num = 1
+    def death(self):
+        global gCount
+        gCount += (self.startHealth % 10)
+        del self
+
+#functions
 def mining(Miner, Materials):
     Materials.wood += Miner.num * 1
     Materials.iron += Miner.num * .5
+
+def do_damage(Warrior, Enemy):
+    Enemy.currHealth -= Warrior.damage
 
 
 
@@ -75,6 +102,8 @@ while True:
 
     miner = Miner()
     materials = Materials()
+    enemy = Enemy()
+    warrior = Warrior()
 
 
 
@@ -112,6 +141,13 @@ while True:
     if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
         if click[0] == 1 and materials.wood >= 1:
             materials.sell_wood()
+    #Doing damage
+    do_damage(warrior, enemy)
+    if enemy.currHealth <= 0:
+        enemy.death()
+    #Enemy
+    if enemy.num == 0:
+        enemy = Enemy()
 
 
     #push
