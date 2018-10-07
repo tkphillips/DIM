@@ -40,11 +40,11 @@ outlineProgresBary = 100
 
 class Miner:
     num = 0
-    mineRate = 1.07
+    costRate = 1.07
     speed = num * .93
-    cost = 10 * mineRate**num
+    cost = 10 * costRate**num
     def buy_miner(self):
-        Miner.num = Miner.n + 1
+        Miner.num = Miner.num + 1
         global gCount
         gCount = gCount - Miner.cost
         return
