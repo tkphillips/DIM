@@ -112,10 +112,6 @@ while True:
     if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
         if click[0] == 1 and materials.wood >= 1:
             materials.sell_wood()
-<<<<<<< HEAD
-=======
-
->>>>>>> 5dec7ea72d78cf42c6330823a7801dc4ab90e00d
 
 
     #push
