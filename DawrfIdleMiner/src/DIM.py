@@ -75,7 +75,7 @@ class Warrior:
     num = 0
     costRate = 1.07
     cost = 10 * (costRate**num)
-    damage = 1 * num
+    damage = 1
     def buy_warroir(self):
         Warrior.num += 1
         global gCount
@@ -99,7 +99,7 @@ def mining(Miner, Materials):
     Materials.iron += Miner.num * .5
 
 def do_damage(Warrior, Enemy):
-    Enemy.currHealth -= Warrior.damage
+    Enemy.currHealth -= Warrior.damage * Warrior.num
 
 
 
