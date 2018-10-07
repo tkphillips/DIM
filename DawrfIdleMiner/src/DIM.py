@@ -35,7 +35,7 @@ gCount = 0
 baseGoldRate = 10
 goldModifier = 1
 outlineProgresBarx = 100
-outlineProgresBary = 100
+outlineProgresBary = 150
 
 #functions
 #def progressBar(defaultTime, modifier ):
