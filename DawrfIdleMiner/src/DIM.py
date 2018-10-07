@@ -82,7 +82,7 @@ while True:
         miner.buy_miner()
 
 
-
+    #push
     croppedProgress = pygame.Surface((width, 30))
     #drawBackground
     screen.fill(BACKGROUND_COLOR)
