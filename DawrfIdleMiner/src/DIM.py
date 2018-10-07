@@ -40,9 +40,7 @@ outlineProgresBary = 100
 #functions
 #def progressBar(defaultTime, modifier ):
 
-def mining(Miner, Materials):
-    Materials.wood = Miner.num * .01
-    Materials.iron = Miners.num * .05
+
 
 class Materials:
     wood = 0
@@ -53,11 +51,14 @@ class Miner:
     cost = 10 * costRate**num
     def buy_miner(self):
         Miner.num = Miner.num + 1
-        global gCount 
+        global gCount
         gCount = gCount - Miner.cost
         return
     def num_miner(self):
         return Miner.num
+def mining(Miner, Materials):
+    Materials.wood += Miner.num * .01
+    Materials.iron += Miners.num * .05
 
 
 # main game loop
@@ -67,24 +68,26 @@ while True:
     materials = Materials()
 
 
+
+
     #globalTime += dt
 
+    #mining
+
+    mining(miner, materials)
+    #Progress bar loop
     if timeProgress < timeFull:
         timeProgress += dt
+        timeFull = defaultTime * modifier
+        coefficient = maxWidth / timeFull
         width = timeProgress * coefficient
         if timeProgress >= timeFull:
             width = 0
             timeProgress = 0
             if timeFull >= .01:
-                modifier = modifier * .9
-                timeFull = defaultTime * modifier
-                coefficient = maxWidth / timeFull
                 width = timeProgress * coefficient
             else:
-                modifier = modifier * .9
-                timeFull = defaultTime * modifier
                 width = maxWidth
-            goldModifier = goldModifier * 1.2
             gCount = gCount + (baseGoldRate * goldModifier)
 
     if gCount >= 10:
