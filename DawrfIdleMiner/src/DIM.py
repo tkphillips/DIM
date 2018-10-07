@@ -133,11 +133,16 @@ while True:
                 width = maxWidth
             mining(Miner, Materials)
             #Doing damage
+<<<<<<< HEAD
+=======
             if enemy.currHealth <= 0:
                 enemy.death()
             enemy.do_damage(warrior.damage, warrior.num)
+>>>>>>> 145389e0a66199cda4f948e7653f8244b5b5f733
             if enemy.currHealth <= 0:
                 enemy.death()
+            enemy.do_damage(warrior.damage, warrior.num)
+
 
 
             #Enemy
