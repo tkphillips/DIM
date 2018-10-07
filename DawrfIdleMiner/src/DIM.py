@@ -32,7 +32,7 @@ timeProgress = 0
 dt = 0
 globalTime = 0
 gCount = 0
-baseGoldRate = 1
+baseGoldRate = 10
 goldModifier = 1
 outlineProgresBarx = 100
 outlineProgresBary = 100
@@ -48,17 +48,20 @@ class Materials:
 class Miner:
     num = 0
     costRate = 1.07
-    cost = 10 * costRate**num
+    cost = 10 * (costRate**num)
     def buy_miner(self):
         Miner.num = Miner.num + 1
         global gCount
         gCount = gCount - Miner.cost
+        Miner.cost = 10 * (Miner.costRate**Miner.num)
         return
     def num_miner(self):
         return Miner.num
+
 def mining(Miner, Materials):
-    Materials.wood += Miner.num * .01
-    Materials.iron += Miners.num * .05
+    Materials.wood += Miner.num * 1
+    Materials.iron += Miner.num * .5
+
 
 
 # main game loop
@@ -74,7 +77,7 @@ while True:
 
     #mining
 
-    mining(miner, materials)
+
     #Progress bar loop
     if timeProgress < timeFull:
         timeProgress += dt
@@ -88,9 +91,10 @@ while True:
                 width = timeProgress * coefficient
             else:
                 width = maxWidth
+            mining(Miner, Materials)
             gCount = gCount + (baseGoldRate * goldModifier)
 
-    if gCount >= 10:
+    if gCount >= miner.cost:
         miner.buy_miner()
 
 
