@@ -76,7 +76,7 @@ class Warrior:
     costRate = 1.07
     cost = 10 * (costRate**num)
     damage = 1 * num
-    def buy_warroir(self):
+    def buy_warrior(self):
         Warrior.num += 1
         global gCount
         gCount -= Warrior.cost
@@ -146,16 +146,20 @@ while True:
 
 
     #sell Wood Button
-<<<<<<< HEAD
             elif 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
                if materials.wood >= 1 and down == False:
                    materials.sell_wood()
                    down = True
 
-       #sell Wood Button
+       #sell iron Button
             elif 150 + 96 > mouse[0] > 150 and 375 + 48 > mouse[1] > 375:
                if materials.iron >= 1 and down == False:
                    materials.sell_iron()
+                   down = True
+        #buy warrior
+            elif 300 + 96 > mouse[0] > 300 and 375 + 48 > mouse[1] > 375:
+               if gCount >= warrior.cost and down == False:
+                   warrior.buy_warrior()
                    down = True
        #unpress if statement
         elif event.type == pygame.MOUSEBUTTONUP:
@@ -164,32 +168,6 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-=======
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
-        if event.type == pygame.MOUSEBUTTONDOWN and materials.wood >= 1 and down == False:
-            materials.sell_wood()
-            down = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            down = False
-    #sell Wood Button
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if 150 + 96 > mouse[0] > 150 and 375 + 48 > mouse[1] > 375:
-        if event.type == pygame.MOUSEBUTTONDOWN and materials.iron >= 1 and down == False:
-                materials.sell_iron()
-                down = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            down = False
-    #Doing damage
-    do_damage(warrior, enemy)
-    if enemy.currHealth <= 0:
-        enemy.death()
-    #Enemy
-    if enemy.num == 0:
-        enemy = Enemy()
->>>>>>> d61d5e3d77a6c4f7446e2756d1182c271fbfc3b7
 
 
     #push
@@ -200,15 +178,19 @@ while True:
     goldText = myfont.render("Gold: {0}".format(int(gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
     minerText = myfont.render("Miners: {0}".format(miner.num), 1, (0,0,0))
+    warriorText = myfont.render("Warriors: {0}".format(warrior.num), 1, (0,0,0))
     woodText = myfont.render("Wood: {0}".format(materials.wood), 1, (0,0,0))
     ironText = myfont.render("Iron: {0}".format(int(materials.iron)), 1, (0,0,0))
     buyMinerText = myfont.render("Buy Miner Gold: {0}".format(miner.cost), 1, (0,0,0))
+    buyWarriorText = myfont.render("Buy Warrior Gold: {0}".format(warrior.cost), 1, (0,0,0))
     screen.blit(modifierText, (5, 30))
     screen.blit(goldText, (5, 10))
     screen.blit(minerText, (5,50))
     screen.blit(woodText, (5, 70))
     screen.blit(ironText, (5, 90))
     screen.blit(buyMinerText, (5, 110))
+    screen.blit(buyWarriorText, (250, 110))
+    screen.blit(warriorText, (130, 50))
     #drawSprites
     croppedProgress.blit(imgProgressBar,(0,0))
     screen.blit(croppedProgress, (outlineProgresBarx + 36 ,outlineProgresBary + 30))
@@ -221,5 +203,3 @@ while True:
     pygame.display.update()
     #clock update
     dt = clock.tick(60) / float(1000)
-
-    
