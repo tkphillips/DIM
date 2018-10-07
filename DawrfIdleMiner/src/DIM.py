@@ -75,8 +75,13 @@ class Warrior:
     num = 0
     costRate = 1.07
     cost = 10 * (costRate**num)
+<<<<<<< HEAD
     damage = 1 * num
     def buy_warrior(self):
+=======
+    damage = 1
+    def buy_warroir(self):
+>>>>>>> 02168eb6d4f2e5d480bf2f4230a4635b31bd60d8
         Warrior.num += 1
         global gCount
         gCount -= Warrior.cost
@@ -99,7 +104,7 @@ def mining(Miner, Materials):
     Materials.iron += Miner.num * .5
 
 def do_damage(Warrior, Enemy):
-    Enemy.currHealth -= Warrior.damage
+    Enemy.currHealth -= Warrior.damage * Warrior.num
 
 
 
@@ -133,6 +138,13 @@ while True:
             else:
                 width = maxWidth
             mining(Miner, Materials)
+            #Doing damage
+            do_damage(warrior, enemy)
+            if enemy.currHealth <= 0:
+                enemy.death()
+            #Enemy
+            if enemy.num == 0:
+                enemy = Enemy()
 
     # buy miner button loop
     mouse = pygame.mouse.get_pos()
@@ -168,6 +180,18 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+<<<<<<< HEAD
+=======
+
+    #Doing damage
+    do_damage(warrior, enemy)
+    if enemy.currHealth <= 0:
+        enemy.death()
+    #Enemy
+    if enemy.num == 0:
+        enemy = Enemy()
+
+>>>>>>> 02168eb6d4f2e5d480bf2f4230a4635b31bd60d8
 
 
     #push
