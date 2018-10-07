@@ -1,4 +1,4 @@
-import pygame, sys, time, os
+import pygame, sys, time, os, random
 from pygame.locals import*
 
 pygame.init()
@@ -40,11 +40,11 @@ woodCost = 5
 ironCost = 10
 down = False
 
-#functions
+
 #def progressBar(defaultTime, modifier ):
 
 
-
+#Classes
 class Materials:
     wood = 0
     iron = 0
@@ -71,9 +71,35 @@ class Miner:
     def num_miner(self):
         return Miner.num
 
+class Warrior:
+    num = 0
+    costRate = 1.07
+    cost = 10 * (costRate**num)
+    damage = 1 * num
+    def buy_warroir(self):
+        Warrior.num += 1
+        global gCount
+        gCount -= Warrior.cost
+        Warrior.cost = 10 * (Warrior.costRate**Warrior.num)
+class Enemy:
+    currHealth = 0
+    startHealth = 0
+    num = 0
+    def __init__(self):
+        self.startHealth = random.randint(10,50)
+        self.num = 1
+    def death(self):
+        global gCount
+        gCount += (self.startHealth % 10)
+        del self
+
+#functions
 def mining(Miner, Materials):
     Materials.wood += Miner.num * 1
     Materials.iron += Miner.num * .5
+
+def do_damage(Warrior, Enemy):
+    Enemy.currHealth -= Warrior.damage
 
 
 
@@ -82,6 +108,8 @@ while True:
 
     miner = Miner()
     materials = Materials()
+    enemy = Enemy()
+    warrior = Warrior()
 
 
 
@@ -118,6 +146,7 @@ while True:
 
 
     #sell Wood Button
+<<<<<<< HEAD
             elif 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
                if materials.wood >= 1 and down == False:
                    materials.sell_wood()
@@ -135,6 +164,32 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+=======
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
+        if event.type == pygame.MOUSEBUTTONDOWN and materials.wood >= 1 and down == False:
+            materials.sell_wood()
+            down = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            down = False
+    #sell Wood Button
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if 150 + 96 > mouse[0] > 150 and 375 + 48 > mouse[1] > 375:
+        if event.type == pygame.MOUSEBUTTONDOWN and materials.iron >= 1 and down == False:
+                materials.sell_iron()
+                down = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            down = False
+    #Doing damage
+    do_damage(warrior, enemy)
+    if enemy.currHealth <= 0:
+        enemy.death()
+    #Enemy
+    if enemy.num == 0:
+        enemy = Enemy()
+>>>>>>> d61d5e3d77a6c4f7446e2756d1182c271fbfc3b7
 
 
     #push
