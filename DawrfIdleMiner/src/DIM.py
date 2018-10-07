@@ -37,6 +37,8 @@ goldModifier = 1
 outlineProgresBarx = 100
 outlineProgresBary = 150
 woodCost = 5
+ironCost = 10
+down = False
 
 #functions
 #def progressBar(defaultTime, modifier ):
@@ -51,6 +53,11 @@ class Materials:
         global woodCost
         gCount += woodCost
         Materials.wood -= 1
+    def sell_iron(self):
+        global gCount
+        global ironCost
+        gCount += ironCost
+        Materials.iron -= 1
 class Miner:
     num = 1
     costRate = 1.07
@@ -103,15 +110,30 @@ while True:
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     if 300 + 96 > mouse[0] > 300 and 300 + 48 > mouse[1] > 300:
-        if click[0] == 1 and gCount >= miner.cost:
+        if event.type == pygame.MOUSEBUTTONDOWN and gCount >= miner.cost and down == False:
             miner.buy_miner()
+            down = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            down = False
 
     #sell Wood Button
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     if 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
-        if click[0] == 1 and materials.wood >= 1:
+        if event.type == pygame.MOUSEBUTTONDOWN and materials.wood >= 1 and down == False:
             materials.sell_wood()
+            down = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            down = False
+    #sell Wood Button
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if 150 + 96 > mouse[0] > 150 and 375 + 48 > mouse[1] > 375:
+        if event.type == pygame.MOUSEBUTTONDOWN and materials.iron >= 1 and down == False:
+                materials.sell_iron()
+                down = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            down = False
 
 
     #push
@@ -123,7 +145,7 @@ while True:
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
     minerText = myfont.render("Miners: {0}".format(miner.num), 1, (0,0,0))
     woodText = myfont.render("Wood: {0}".format(materials.wood), 1, (0,0,0))
-    ironText = myfont.render("Iron: {0}".format(materials.iron), 1, (0,0,0))
+    ironText = myfont.render("Iron: {0}".format(int(materials.iron)), 1, (0,0,0))
     buyMinerText = myfont.render("Buy Miner Gold: {0}".format(miner.cost), 1, (0,0,0))
     screen.blit(modifierText, (5, 30))
     screen.blit(goldText, (5, 10))
@@ -137,6 +159,7 @@ while True:
     screen.blit(imgProgressBarOutline, (outlineProgresBarx,outlineProgresBary))
     screen.blit(imgButton, (300,300))
     screen.blit(imgButton, (150,300))
+    screen.blit(imgButton, (150,375))
     #display update
     pygame.display.update()
     #clock update
