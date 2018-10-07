@@ -15,6 +15,7 @@ BLACK = (0,0,0)
 myfont = pygame.font.SysFont("monospace", 16)
 
 #Sprite Import
+imgButton = pygame.image.load("Sprites\Button96x48.png")
 imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 # dwarfImg = pygame.image,load('filename')
@@ -109,6 +110,7 @@ while True:
     croppedProgress.blit(imgProgressBar,(0,0))
     screen.blit(croppedProgress, (outlineProgresBarx + 36 ,outlineProgresBary + 30))
     screen.blit(imgProgressBarOutline, (outlineProgresBarx,outlineProgresBary))
+    screen.blit(imgButton, (300,300))
     #display update
     pygame.display.update()
     #clock update
