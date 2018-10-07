@@ -87,7 +87,7 @@ class Enemy:
     currHealth = startHealth
     def death(self):
         global gCount
-        gCount += int(Enemy.startHealth % 10)
+        gCount += (Enemy.startHealth / 10)
         Enemy.startHealth = random.randint(10,50)
         Enemy.currHealth = Enemy.startHealth
     def do_damage(self, damage, num):
