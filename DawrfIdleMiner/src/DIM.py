@@ -31,7 +31,7 @@ coefficient = maxWidth / timeFull
 timeProgress = 0
 dt = 0
 globalTime = 0
-gCount = 0
+gCount = 10
 baseGoldRate = 10
 goldModifier = 1
 outlineProgresBarx = 100
@@ -83,27 +83,22 @@ class Warrior:
         gCount -= Warrior.cost
         Warrior.cost = 10 * (Warrior.costRate**Warrior.num)
 class Enemy:
-    currHealth = 0
-    startHealth = 0
-    num = 0
-    def __init__(self):
-        self.startHealth = random.randint(10,50)
-        self.currHealth = self.startHealth
-        self.num = 1
+    startHealth = random.randint(10,50)
+    currHealth = startHealth
     def death(self):
         global gCount
         gCount += int(self.startHealth % 10)
-        global enemyNum
-        enemyNum = 0
-        del self
+        self.startHealth = random.randint(10,50)
+        self.currHealth = self.startHealth
+    def do_damage(self, damage, num):
+        self.currHealth -= damage * num
 
 #functions
 def mining(Miner, Materials):
     Materials.wood += Miner.num * 1
     Materials.iron += Miner.num * .5
 
-def do_damage(Warrior, Enemy):
-    Enemy.currHealth -= Warrior.damage * Warrior.num
+
 
 
 
@@ -138,10 +133,10 @@ while True:
                 width = maxWidth
             mining(Miner, Materials)
             #Doing damage
-            do_damage(warrior, enemy)
-            if enemyNum == 1 and enemy.currHealth <= 0:
+            enemy.do_damage(warrior.damage, warrior.num)
+            if enemy.currHealth <= 0:
                 enemy.death()
-                enemyNum = 1
+
             #Enemy
 
 
@@ -180,13 +175,8 @@ while True:
                 pygame.quit()
                 sys.exit()
 
-    #Doing damage
-    do_damage(warrior, enemy)
-    if enemy.currHealth <= 0:
-        enemy.death()
-    #Enemy
-    if enemy.num == 0:
-        enemy = Enemy()
+
+
 
 
 
@@ -203,7 +193,9 @@ while True:
     ironText = myfont.render("Iron: {0}".format(int(materials.iron)), 1, (0,0,0))
     buyMinerText = myfont.render("Buy Miner Gold: {0}".format(miner.cost), 1, (0,0,0))
     buyWarriorText = myfont.render("Buy Warrior Gold: {0}".format(warrior.cost), 1, (0,0,0))
+    emenyHealthText = myfont.render("Enemy Health: {0}".format(enemy.currHealth), 1, (0,0,0))
     screen.blit(modifierText, (5, 30))
+    screen.blit(emenyHealthText, (200, 30))
     screen.blit(goldText, (5, 10))
     screen.blit(minerText, (5,50))
     screen.blit(woodText, (5, 70))
