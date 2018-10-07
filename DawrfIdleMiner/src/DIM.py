@@ -34,8 +34,22 @@ gCount = 0
 baseGoldRate = 1
 goldModifier = 1
 outlineProgresBarx = 50
-outlineProgresBary = 100
+outlineProgresBary = 10
+
 #functions
+
+class Miner:
+    n = 0
+    mr = 1.07
+    speed = n * .93
+    cost = 10 * mr**n
+    def buy_miner(self):
+        Miner.n = Miner.n + 1
+        global gCount
+        gCount = gCount - Miner.cost
+        return
+    def num_miner(self):
+        return Miner.n
 
 
 # main game loop
@@ -73,8 +87,11 @@ while True:
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
+    modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
+    modifierText = myfont.render("Miners: {0}".format(m.n), 1, (0,0,0))
     screen.blit(modifierText, (5, 30))
     screen.blit(goldText, (5, 10))
+    screen.blit(minerText, (5,50))
     #drawSprites
     #pygame.draw.rect(screen, LIGHT_GRAY, (51, 100,width, 80))
     #screen.blit(imgProgressBar, (70,150))
