@@ -44,7 +44,7 @@ class Miner:
     speed = num * .93
     cost = 10 * mineRate**num
     def buy_miner(self):
-        Miner.num = Miner.n + 1
+        Miner.num = Miner.num + 1
         global gCount
         gCount = gCount - Miner.cost
         return
@@ -94,8 +94,6 @@ while True:
     screen.blit(goldText, (5, 10))
     screen.blit(minerText, (5,50))
     #drawSprites
-    #pygame.draw.rect(screen, LIGHT_GRAY, (51, 100,width, 80))
-    #screen.blit(imgProgressBar, (70,150))
     croppedProgress.blit(imgProgressBar,(0,0))
     screen.blit(croppedProgress, (outlineProgresBarx + 36 ,outlineProgresBary + 30))
     screen.blit(imgProgressBarOutline, (outlineProgresBarx,outlineProgresBary))
