@@ -52,7 +52,7 @@ class Miner:
     cost = 10 * costRate**num
     def buy_miner(self):
         Miner.num = Miner.num + 1
-        global gCount
+        global gCount 
         gCount = gCount - Miner.cost
         return
     def num_miner(self):
