@@ -87,11 +87,11 @@ class Enemy:
     currHealth = startHealth
     def death(self):
         global gCount
-        gCount += int(self.startHealth % 10)
-        self.startHealth = random.randint(10,50)
-        self.currHealth = self.startHealth
+        gCount += int(Enemy.startHealth % 10)
+        Enemy.startHealth = random.randint(10,50)
+        Enemy.currHealth = Enemy.startHealth
     def do_damage(self, damage, num):
-        self.currHealth -= damage * num
+        Enemy.currHealth -= damage * num
 
 #functions
 def mining(Miner, Materials):
@@ -133,9 +133,16 @@ while True:
                 width = maxWidth
             mining(Miner, Materials)
             #Doing damage
+<<<<<<< HEAD
+=======
             if enemy.currHealth <= 0:
                 enemy.death()
             enemy.do_damage(warrior.damage, warrior.num)
+>>>>>>> 145389e0a66199cda4f948e7653f8244b5b5f733
+            if enemy.currHealth <= 0:
+                enemy.death()
+            enemy.do_damage(warrior.damage, warrior.num)
+
 
 
             #Enemy
