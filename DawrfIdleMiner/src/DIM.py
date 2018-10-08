@@ -5,7 +5,7 @@ pygame.init()
 pygame.font.init()
 #Sprite Import
 imgButton = pygame.image.load("Sprites\Button96x48.png")
-imgBackground = pygame.image.load("Sprites\download.png")
+imgBackground = pygame.image.load("Sprites\Background.png")
 imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 imgButton = pygame.image.load("Sprites\Button96x48.png")
