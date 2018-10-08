@@ -4,8 +4,11 @@ from pygame.locals import*
 pygame.init()
 pygame.font.init()
 #window size and title
-screen = pygame.display.set_mode((640, 480))
+screen = pygame.display.set_mode((640, 480), HWSURFACE|DOUBLEBUF|RESIZABLE) ##########################################
+fake_screen = screen.copy()                                                             ##############################
 pygame.display.set_caption('Dwarf Idle Miner')
+screenSurface = pygame.surface.Surface((640, 480))                            ########################################
+screenSurface.fill((222,184,135))                                             ########################################
 #clock
 clock = pygame.time.Clock()
 #colors
@@ -179,6 +182,12 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+        #Check Resize
+        elif event.type == VIDEORESIZE:
+            screen = pygame.display.set_mode(event.dict['size'], HWSURFACE|DOUBLEBUF|RESIZABLE)
+            fake_screen.blit(screenSurface, (100, 100))
+            screen.blit(pygame.transform.scale(fake_screen, event.dict['size']), (0, 0))
+            pygame.display.flip()
 
 
 
