@@ -138,7 +138,7 @@ while True:
             enemy.do_damage(warrior.damage, warrior.num)
             if enemy.currHealth <= 0:
                 enemy.death()
-            
+
 
 
 
@@ -196,8 +196,8 @@ while True:
     warriorText = myfont.render("Warriors: {0}".format(warrior.num), 1, (0,0,0))
     woodText = myfont.render("Wood: {0}".format(materials.wood), 1, (0,0,0))
     ironText = myfont.render("Iron: {0}".format(int(materials.iron)), 1, (0,0,0))
-    buyMinerText = myfont.render("Buy Miner Gold: {0}".format(miner.cost), 1, (0,0,0))
-    buyWarriorText = myfont.render("Buy Warrior Gold: {0}".format(warrior.cost), 1, (0,0,0))
+    buyMinerText = myfont.render("Buy Miner Gold: {0:6.2f}".format(miner.cost), 1, (0,0,0))
+    buyWarriorText = myfont.render("Buy Warrior Gold: {0:6.2f}".format(warrior.cost), 1, (0,0,0))
     emenyHealthText = myfont.render("Enemy Health: {0}".format(enemy.currHealth), 1, (0,0,0))
     screen.blit(modifierText, (5, 30))
     screen.blit(emenyHealthText, (200, 30))
