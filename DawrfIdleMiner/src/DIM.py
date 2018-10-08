@@ -182,7 +182,7 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        #Check Resize
+        #Check Resize                                  ############################################
         elif event.type == VIDEORESIZE:
             screen = pygame.display.set_mode(event.dict['size'], HWSURFACE|DOUBLEBUF|RESIZABLE)
             fake_screen.blit(screenSurface, (100, 100))
