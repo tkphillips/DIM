@@ -3,12 +3,24 @@ from pygame.locals import*
 
 pygame.init()
 pygame.font.init()
+#Sprite Import
+imgButton = pygame.image.load("Sprites\Button96x48.png")
+imgBackground = pygame.image.load("Sprites\download.png")
+imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
+imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
+imgButton = pygame.image.load("Sprites\Button96x48.png")
+imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
+imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 #window size and title
 screen = pygame.display.set_mode((640, 480), HWSURFACE|DOUBLEBUF|RESIZABLE) ##########################################
 fake_screen = screen.copy()                                                             ##############################
 pygame.display.set_caption('Dwarf Idle Miner')
-screenSurface = pygame.surface.Surface((640, 480))                            ########################################
-screenSurface.fill((222,184,135))                                             ########################################
+screenSurface = pygame.Surface((640, 480))                            ########################################
+imgBackground = pygame.transform.scale(imgBackground, (640, 480))
+screenSurface.blit(imgBackground, (0,0))
+
+
+                                       ########################################
 #clock
 clock = pygame.time.Clock()
 #colors
@@ -17,10 +29,7 @@ LIGHT_GRAY = (120, 120, 120)
 BLACK = (0,0,0)
 myfont = pygame.font.SysFont("monospace", 16)
 
-#Sprite Import
-imgButton = pygame.image.load("Sprites\Button96x48.png")
-imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
-imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
+
 # dwarfImg = pygame.image,load('filename')
 #spritesize
 #dwarfx=
@@ -187,17 +196,17 @@ while True:
             screen = pygame.display.set_mode(event.dict['size'], HWSURFACE|DOUBLEBUF|RESIZABLE)
             fake_screen.blit(screenSurface, (100, 100))
             screen.blit(pygame.transform.scale(fake_screen, event.dict['size']), (0, 0))
+            imgBackground = pygame.transform.scale(imgBackground, event.dict['size'])
             pygame.display.flip()
 
 
 
 
 
-
-    #push
+    #progress bar
     croppedProgress = pygame.Surface((width, 30))
     #drawBackground
-    screen.fill(BACKGROUND_COLOR)
+    screen.blit(imgBackground, (0,0))
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
