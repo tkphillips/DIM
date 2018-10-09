@@ -220,10 +220,11 @@ while True:
     #drawBackground
     screen.blit(imgBackgroundScaled, (0,0))
     #surfaces
-    croppedProgress = pygame.Surface((width, 30))
+    croppedProgress = pygame.Surface((scale(width, 30)))
     imgProgressBarOutlineSurface = pygame.Surface(scale(384,90), pygame.SRCALPHA, 32)
     #scaling
     imgProgressBarOutlineScaled = pygame.transform.scale(imgProgressBarOutline, (scale(384,90)))
+    imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
 
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(gCount)), 1, (0,0,0))
@@ -245,7 +246,7 @@ while True:
     screen.blit(buyWarriorText, (250, 110))
     screen.blit(warriorText, (130, 50))
     #drawSprites
-    croppedProgress.blit(imgProgressBar,(0,0))
+    croppedProgress.blit(imgProgressBarScaled,(0,0))
     screen.blit(croppedProgress, (scale(89,380)))
     imgProgressBarOutlineSurface.blit(imgProgressBarOutlineScaled, (0,0))
     screen.blit(imgProgressBarOutlineScaled, (scale(53,350)))
