@@ -6,10 +6,9 @@ pygame.font.init()
 #Sprite Import
 imgButton = pygame.image.load("Sprites\Button96x48.png")
 imgBackground = pygame.image.load("Sprites\Background.png")
-imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
+imgProgressBarOutline = (pygame.image.load("Sprites\Progressbaroutline384x90.png"), 384, 90)
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 imgButton = pygame.image.load("Sprites\Button96x48.png")
-imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 #window size and title
 screen = pygame.display.set_mode((640, 480), HWSURFACE|DOUBLEBUF|RESIZABLE) ##########################################
@@ -200,7 +199,7 @@ while True:
             imgBackground = pygame.transform.scale(imgBackground, event.dict['size'])
             x1 = int(event.dict['w']/16)
             y1 = int(event.dict['h']*(17/24))
-            imgProgressBarOutline = pygame.transform.scale(imgProgressBarOutline, (int((384 * event.dict['w'])/640), int((90*event.dict['h'])/480)))
+            imgProgressBarOutline = pygame.transform.scale(imgProgressBarOutline[0], (int((384 * event.dict['w'])/640), int((90*event.dict['h'])/480)))
             imgProgressBarOutlineSurface = pygame.Surface((int((384 * event.dict['w'])/640), int((90*event.dict['h'])/480)), pygame.SRCALPHA, 32)
             pygame.display.flip()
 
@@ -232,7 +231,7 @@ while True:
     screen.blit(buyWarriorText, (250, 110))
     screen.blit(warriorText, (130, 50))
     #drawSprites
-    imgProgressBarOutlineSurface.blit(imgProgressBarOutline, (0,0))
+    imgProgressBarOutlineSurface.blit(imgProgressBarOutline[0], (0,0))
     screen.blit(imgProgressBarOutlineSurface, (x1 ,y1))
     croppedProgress.blit(imgProgressBar,(0,0))
     screen.blit(croppedProgress, (x1 + 36 ,y1 + 30))
