@@ -198,14 +198,16 @@ while True:
             fake_screen.blit(screenSurface, (100, 100))
             screen.blit(pygame.transform.scale(fake_screen, event.dict['size']), (0, 0))
             imgBackground = pygame.transform.scale(imgBackground, event.dict['size'])
-            x1 = int(event.dict['w']/16)
-            y1 = int(event.dict['h']*(17/24))
+            xmax = event.dict['w']
+            ymax = event.dict['h']
             imgProgressBarOutline = pygame.transform.scale(imgProgressBarOutline, (int((384 * event.dict['w'])/640), int((90*event.dict['h'])/480)))
             imgProgressBarOutlineSurface = pygame.Surface((int((384 * event.dict['w'])/640), int((90*event.dict['h'])/480)), pygame.SRCALPHA, 32)
             pygame.display.flip()
 
 
+            def scale(int1,int2):
 
+                
 
 
     #progress bar
