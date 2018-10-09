@@ -250,10 +250,10 @@ while True:
     screen.blit(croppedProgress, (scale(89,380)))
     imgProgressBarOutlineSurface.blit(imgProgressBarOutlineScaled, (0,0))
     screen.blit(imgProgressBarOutlineScaled, (scale(53,350)))
-    #screen.blit(imgButton, (300,300))
-    #screen.blit(imgButton, (150,300))
-    #screen.blit(imgButton, (150,375))
-    #screen.blit(imgButton, (300,375))
+    screen.blit(imgButton, (300,300))
+    screen.blit(imgButton, (150,300))
+    screen.blit(imgButton, (150,375))
+    screen.blit(imgButton, (300,375))
     #display update
     pygame.display.update()
     #clock update
