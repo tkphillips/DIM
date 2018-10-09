@@ -217,7 +217,7 @@ while True:
     #scaling
     imgProgressBarOutlineScaled = pygame.transform.scale(imgProgressBarOutline, (scale(384,90)))
     imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
-
+    imgButtonScaled = pygame.transform.scale(imgButton, (scale(96,48)))
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(Materials.gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
@@ -242,10 +242,10 @@ while True:
     screen.blit(croppedProgress, (scale(89,380)))
     imgProgressBarOutlineSurface.blit(imgProgressBarOutlineScaled, (0,0))
     screen.blit(imgProgressBarOutlineScaled, (scale(53,350)))
-    screen.blit(imgButton, (300,300))
-    screen.blit(imgButton, (150,300))
-    screen.blit(imgButton, (150,375))
-    screen.blit(imgButton, (300,375))
+    screen.blit(imgButtonScaled, (scale(300,300)))
+    screen.blit(imgButtonScaled, (scale(150,300)))
+    screen.blit(imgButtonScaled, (scale(150,375)))
+    screen.blit(imgButtonScaled, (scale(300,375)))
     #display update
     pygame.display.update()
     #clock update
