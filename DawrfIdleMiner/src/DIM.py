@@ -165,25 +165,25 @@ while True:
     click = pygame.mouse.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if 300 + 96 > mouse[0] > 300 and 300 + 48 > mouse[1] > 300:
+            if scale(396,300)[0] > mouse[0] > scale(300,300)[0] and scale(300,348)[1] > mouse[1] > scale(300,300)[1]:
                 if materials.gCount >= miner.cost and down == False:
                     miner.buy_miner()
                     down = True
 
 
     #sell Wood Button
-            elif 150 + 96 > mouse[0] > 150 and 300 + 48 > mouse[1] > 300:
+            elif scale(246,0)[0] > mouse[0] > scale(150,0)[0] and scale(0,348)[1] > mouse[1] > scale(0,300)[1]:
                if materials.wood >= 1 and down == False:
                    materials.sell_wood()
                    down = True
 
        #sell iron Button
-            elif 150 + 96 > mouse[0] > 150 and 375 + 48 > mouse[1] > 375:
+            elif scale(246,0)[0] > mouse[0] > scale(150,0)[0] and scale(0,423)[1] > mouse[1] > scale(0,375)[1]:
                if materials.iron >= 1 and down == False:
                    materials.sell_iron()
                    down = True
         #buy warrior
-            elif 300 + 96 > mouse[0] > 300 and 375 + 48 > mouse[1] > 375:
+            elif scale(396,0)[0] > mouse[0] > scale(300,0)[0] and scale(0,423)[1] > mouse[1] >  scale(0,375)[1]:
                if materials.gCount >= warrior.cost and down == False:
                    warrior.buy_warrior()
                    down = True
