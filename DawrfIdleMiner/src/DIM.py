@@ -232,10 +232,10 @@ while True:
     screen.blit(buyWarriorText, (250, 110))
     screen.blit(warriorText, (130, 50))
     #drawSprites
-    imgProgressBarOutlineSurface.blit(imgProgressBarOutline, (0,0))
-    screen.blit(imgProgressBarOutlineSurface, (x1 ,y1))
     croppedProgress.blit(imgProgressBar,(0,0))
     screen.blit(croppedProgress, (x1 + 36 ,y1 + 30))
+    imgProgressBarOutlineSurface.blit(imgProgressBarOutline, (0,0))
+    screen.blit(imgProgressBarOutlineSurface, (x1 ,y1))
     screen.blit(imgButton, (300,300))
     screen.blit(imgButton, (150,300))
     screen.blit(imgButton, (150,375))
