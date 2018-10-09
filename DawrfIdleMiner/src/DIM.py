@@ -15,7 +15,8 @@ imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 screen = pygame.display.set_mode((640, 480), HWSURFACE|DOUBLEBUF|RESIZABLE) ##########################################
 fake_screen = screen.copy()                                                             ##############################
 pygame.display.set_caption('Dwarf Idle Miner')
-screenSurface = pygame.Surface((640, 480))                            ########################################
+screenSurface = pygame.Surface((640, 480))
+imgProgressBarOutlineSurface = pygame.Surface((384, 90), pygame.SRCALPHA, 32)                           ########################################
 imgBackground = pygame.transform.scale(imgBackground, (640, 480))
 screenSurface.blit(imgBackground, (0,0))
 
@@ -46,8 +47,8 @@ globalTime = 0
 gCount = 10
 baseGoldRate = 10
 goldModifier = 1
-outlineProgresBarx = 100
-outlineProgresBary = 150
+outlineProgresBarx = 40
+outlineProgresBary = 340
 woodCost = 5
 ironCost = 10
 down = False
@@ -197,6 +198,10 @@ while True:
             fake_screen.blit(screenSurface, (100, 100))
             screen.blit(pygame.transform.scale(fake_screen, event.dict['size']), (0, 0))
             imgBackground = pygame.transform.scale(imgBackground, event.dict['size'])
+            x1 = int(event.dict['w']/16)
+            y1 = int(event.dict['h']*(17/24))
+            imgProgressBarOutline = pygame.transform.scale(imgProgressBarOutline, (int((384 * event.dict['w'])/640), int((90*event.dict['h'])/480)))
+            imgProgressBarOutlineSurface = pygame.Surface((int((384 * event.dict['w'])/640), int((90*event.dict['h'])/480)), pygame.SRCALPHA, 32)
             pygame.display.flip()
 
 
@@ -227,9 +232,10 @@ while True:
     screen.blit(buyWarriorText, (250, 110))
     screen.blit(warriorText, (130, 50))
     #drawSprites
+    imgProgressBarOutlineSurface.blit(imgProgressBarOutline, (0,0))
+    screen.blit(imgProgressBarOutlineSurface, (x1 ,y1))
     croppedProgress.blit(imgProgressBar,(0,0))
-    screen.blit(croppedProgress, (outlineProgresBarx + 36 ,outlineProgresBary + 30))
-    screen.blit(imgProgressBarOutline, (outlineProgresBarx,outlineProgresBary))
+    screen.blit(croppedProgress, (x1 + 36 ,y1 + 30))
     screen.blit(imgButton, (300,300))
     screen.blit(imgButton, (150,300))
     screen.blit(imgButton, (150,375))
