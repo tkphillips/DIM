@@ -38,6 +38,7 @@ myfont = pygame.font.SysFont("monospace", 16)
 #spritesize
 #dwarfx=
 #dwarfy=
+
 #Variables
 maxWidth = 312
 defaultTime = 5
@@ -47,13 +48,8 @@ coefficient = maxWidth / timeFull
 timeProgress = 0
 dt = 0
 globalTime = 0
-gCount = 10
-baseGoldRate = 10
-goldModifier = 1
 outlineProgresBarx = 40
 outlineProgresBary = 340
-woodCost = 5
-ironCost = 10
 down = False
 enemyNum = 1
 
@@ -63,26 +59,24 @@ enemyNum = 1
 
 #Classes
 class Materials:
+    gCount = 10
     wood = 0
     iron = 0
+    woodCost = 1
+    ironCost = 5
     def sell_wood(self):
-        global gCount
-        global woodCost
-        gCount += woodCost
-        Materials.wood -= 1
+        Materials.gCount += ( Materials.wood * Materials.woodCost)
+        Materials.wood = 0
     def sell_iron(self):
-        global gCount
-        global ironCost
-        gCount += ironCost
-        Materials.iron -= 1
+        Materials.gCount += (Materials.iron * Materials.ironCost)
+        Materials.iron = 0
 class Miner:
     num = 1
     costRate = 1.07
     cost = 10 * (costRate**(num-1))
     def buy_miner(self):
         Miner.num = Miner.num + 1
-        global gCount
-        gCount = gCount - Miner.cost
+        Materials.gCount = Materials.gCount - Miner.cost
         Miner.cost = 10 * (Miner.costRate**Miner.num)
         return
     def num_miner(self):
@@ -95,15 +89,13 @@ class Warrior:
     damage = 10
     def buy_warrior(self):
         Warrior.num += 1
-        global gCount
-        gCount -= Warrior.cost
+        Materials.gCount -= Warrior.cost
         Warrior.cost = 10 * (Warrior.costRate**Warrior.num)
 class Enemy:
     startHealth = random.randint(10,50)
     currHealth = startHealth
     def death(self):
-        global gCount
-        gCount += (Enemy.startHealth / 10)
+        Materials.gCount += (Enemy.startHealth / 10)
         Enemy.startHealth = random.randint(10,50)
         Enemy.currHealth = Enemy.startHealth
     def do_damage(self, damage, num):
@@ -174,7 +166,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 300 + 96 > mouse[0] > 300 and 300 + 48 > mouse[1] > 300:
-                if gCount >= miner.cost and down == False:
+                if materials.gCount >= miner.cost and down == False:
                     miner.buy_miner()
                     down = True
 
@@ -192,7 +184,7 @@ while True:
                    down = True
         #buy warrior
             elif 300 + 96 > mouse[0] > 300 and 375 + 48 > mouse[1] > 375:
-               if gCount >= warrior.cost and down == False:
+               if materials.gCount >= warrior.cost and down == False:
                    warrior.buy_warrior()
                    down = True
        #unpress if statement
@@ -227,7 +219,7 @@ while True:
     imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
 
     #draw text
-    goldText = myfont.render("Gold: {0}".format(int(gCount)), 1, (0,0,0))
+    goldText = myfont.render("Gold: {0}".format(int(Materials.gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
     minerText = myfont.render("Miners: {0}".format(miner.num), 1, (0,0,0))
     warriorText = myfont.render("Warriors: {0}".format(warrior.num), 1, (0,0,0))
