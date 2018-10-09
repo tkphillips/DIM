@@ -157,7 +157,7 @@ while True:
 
 
 
-            #Enemy
+
 
 
     # buy miner button loop
