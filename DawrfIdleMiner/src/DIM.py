@@ -58,10 +58,16 @@ enemyNum = 1
 
 
 #Classes
+class Enviroment:
+    zone = 0
+    enemyHealth = 1  #scaling factor
+    mine = 0
+    
 class Materials:
     gCount = 10
     wood = 0
     iron = 0
+    ancientTech = 0
     woodCost = 1
     ironCost = 5
     def sell_wood(self):
@@ -70,6 +76,7 @@ class Materials:
     def sell_iron(self):
         Materials.gCount += (Materials.iron * Materials.ironCost)
         Materials.iron = 0
+
 class Miner:
     num = 1
     costRate = 1.07
