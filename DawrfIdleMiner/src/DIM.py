@@ -222,12 +222,23 @@ while True:
     #surfaces
     croppedProgress = pygame.Surface((scale(width, 30)))
     imgProgressBarOutlineSurface = pygame.Surface(scale(384,90), pygame.SRCALPHA, 32)
-    mineSurface = pygame.Surface((scale(64, 49)))
+    mineSurface = pygame.Surface((scale(300, 200)))
     #scaling
     imgProgressBarOutlineScaled = pygame.transform.scale(imgProgressBarOutline, (scale(384,90)))
     imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
     imgButtonScaled = pygame.transform.scale(imgButton, (scale(96,48)))
-    imgMineScaled = pygame.transform.scale(imgMine, (scale(64,49)))
+    imgMineScaled = pygame.transform.scale(imgMine, (scale(300,200)))
+    #drawSprites
+    mineSurface.blit(imgMineScaled,(0,0))
+    screen.blit(mineSurface, (scale(330,60)))
+    croppedProgress.blit(imgProgressBarScaled,(0,0))
+    screen.blit(croppedProgress, (scale(89,380)))
+    imgProgressBarOutlineSurface.blit(imgProgressBarOutlineScaled, (0,0))
+    screen.blit(imgProgressBarOutlineScaled, (scale(53,350)))
+    screen.blit(imgButtonScaled, (scale(300,300)))
+    screen.blit(imgButtonScaled, (scale(150,300)))
+    screen.blit(imgButtonScaled, (scale(150,375)))
+    screen.blit(imgButtonScaled, (scale(300,375)))
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(Materials.gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
@@ -247,17 +258,6 @@ while True:
     screen.blit(buyMinerText, (5, 110))
     screen.blit(buyWarriorText, (250, 110))
     screen.blit(warriorText, (130, 50))
-    #drawSprites
-    mineSurface.blit(imgMineScaled,(0,0))
-    screen.blit(mineSurface, (scale(300,10)))
-    croppedProgress.blit(imgProgressBarScaled,(0,0))
-    screen.blit(croppedProgress, (scale(89,380)))
-    imgProgressBarOutlineSurface.blit(imgProgressBarOutlineScaled, (0,0))
-    screen.blit(imgProgressBarOutlineScaled, (scale(53,350)))
-    screen.blit(imgButtonScaled, (scale(300,300)))
-    screen.blit(imgButtonScaled, (scale(150,300)))
-    screen.blit(imgButtonScaled, (scale(150,375)))
-    screen.blit(imgButtonScaled, (scale(300,375)))
     #display update
     pygame.display.update()
     #clock update
