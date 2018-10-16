@@ -14,6 +14,7 @@ imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png"
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 imgButton = pygame.image.load("Sprites\Button96x48.png")
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
+imgMine = pygame.image.load("Sprites\Basic_cave64x49.png")
 #window size and title
 screen = pygame.display.set_mode((defaultX, defaultY), HWSURFACE|DOUBLEBUF|RESIZABLE) ##########################################
 fake_screen = screen.copy()                                                             ##############################
@@ -62,7 +63,7 @@ class Enviroment:
     zone = 0
     enemyHealth = 1  #scaling factor
     mine = 0
-    
+
 class Materials:
     gCount = 10
     wood = 0
@@ -221,10 +222,12 @@ while True:
     #surfaces
     croppedProgress = pygame.Surface((scale(width, 30)))
     imgProgressBarOutlineSurface = pygame.Surface(scale(384,90), pygame.SRCALPHA, 32)
+    mineSurface = pygame.Surface((scale(64, 49)))
     #scaling
     imgProgressBarOutlineScaled = pygame.transform.scale(imgProgressBarOutline, (scale(384,90)))
     imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
     imgButtonScaled = pygame.transform.scale(imgButton, (scale(96,48)))
+    imgMineScaled = pygame.transform.scale(imgMine, (scale(64,49)))
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(Materials.gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
@@ -245,6 +248,8 @@ while True:
     screen.blit(buyWarriorText, (250, 110))
     screen.blit(warriorText, (130, 50))
     #drawSprites
+    mineSurface.blit(imgMineScaled,(0,0))
+    screen.blit(mineSurface, (scale(300,10)))
     croppedProgress.blit(imgProgressBarScaled,(0,0))
     screen.blit(croppedProgress, (scale(89,380)))
     imgProgressBarOutlineSurface.blit(imgProgressBarOutlineScaled, (0,0))
