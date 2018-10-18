@@ -15,6 +15,8 @@ imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 imgButton = pygame.image.load("Sprites\Button96x48.png")
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 imgMine = pygame.image.load("Sprites\Basic_cave64x49.png")
+imgIcon = pygame.image.load("Sprites\DwarfMiner72x66.png")
+enemySprt = pygame.image.load("Sprites\enemy_1.png")
 #window size and title
 screen = pygame.display.set_mode((defaultX, defaultY), HWSURFACE|DOUBLEBUF|RESIZABLE) ##########################################
 fake_screen = screen.copy()                                                             ##############################
@@ -23,6 +25,7 @@ screenSurface = pygame.Surface((defaultX,defaultY))
                           ########################################
 imgBackgroundScaled = pygame.transform.scale(imgBackground, (defaultX,defaultY))
 screenSurface.blit(imgBackgroundScaled, (0,0))
+pygame.display.set_icon(imgIcon)
 
 
                                        ########################################
@@ -91,7 +94,7 @@ class Miner:
         return Miner.num
 
 class Warrior:
-    num = 0
+    num = 5
     costRate = 1.07
     cost = 10 * (costRate**num)
     damage = 10
@@ -106,8 +109,17 @@ class Enemy:
         Materials.gCount += (Enemy.startHealth / 10)
         Enemy.startHealth = random.randint(10,50)
         Enemy.currHealth = Enemy.startHealth
+        self.switch_sprite()
     def do_damage(self, damage, num):
         Enemy.currHealth -= damage * num
+    def switch_sprite(self):
+        spNm = random.randint(1,2)
+        enemySprt = pygame.image.load("Sprites\enemy_%d.png" % spNm)
+        enemyScaled = pygame.transform.scale(enemySprt, (scale(100, 100)))
+        mineSurface.blit(imgMineScaled,(0,0))
+        screen.blit(mineSurface, (scale(330,60)))
+        screen.blit(enemyScaled, (scale(452, 155)))
+
 
 #functions
 def mining(Miner, Materials):
@@ -140,8 +152,8 @@ while True:
 
     #mining
 
-
     #Progress bar loop
+    #Manages the length of the progress bar
     if timeProgress < timeFull:
         timeProgress += dt
         timeFull = defaultTime * modifier
@@ -228,6 +240,7 @@ while True:
     imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
     imgButtonScaled = pygame.transform.scale(imgButton, (scale(96,48)))
     imgMineScaled = pygame.transform.scale(imgMine, (scale(300,200)))
+    enemyScaled = pygame.transform.scale(enemySprt, (scale(100, 100)))
     #drawSprites
     mineSurface.blit(imgMineScaled,(0,0))
     screen.blit(mineSurface, (scale(330,60)))
@@ -239,6 +252,7 @@ while True:
     screen.blit(imgButtonScaled, (scale(150,300)))
     screen.blit(imgButtonScaled, (scale(150,375)))
     screen.blit(imgButtonScaled, (scale(300,375)))
+    screen.blit(enemyScaled, (scale(452, 155)))
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(Materials.gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
