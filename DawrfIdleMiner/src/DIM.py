@@ -18,17 +18,17 @@ imgMine = pygame.image.load("Sprites\Basic_cave64x49.png")
 imgIcon = pygame.image.load("Sprites\DwarfMiner72x66.png")
 enemySprt = pygame.image.load("Sprites\enemy_1.png")
 #window size and title
-screen = pygame.display.set_mode((defaultX, defaultY), HWSURFACE|DOUBLEBUF|RESIZABLE) ##########################################
-fake_screen = screen.copy()                                                             ##############################
+screen = pygame.display.set_mode((defaultX, defaultY), HWSURFACE|DOUBLEBUF|RESIZABLE)
+fake_screen = screen.copy()
 pygame.display.set_caption('Dwarf Idle Miner')
 screenSurface = pygame.Surface((defaultX,defaultY))
-                          ########################################
+
 imgBackgroundScaled = pygame.transform.scale(imgBackground, (defaultX,defaultY))
 screenSurface.blit(imgBackgroundScaled, (0,0))
 pygame.display.set_icon(imgIcon)
 
 
-                                       ########################################
+
 #clock
 clock = pygame.time.Clock()
 #colors
@@ -214,7 +214,7 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        #Check Resize                                  ############################################
+        #Check Resize                                
         elif event.type == VIDEORESIZE:
             screen = pygame.display.set_mode(event.dict['size'], HWSURFACE|DOUBLEBUF|RESIZABLE)
             fake_screen.blit(screenSurface, (100, 100))
