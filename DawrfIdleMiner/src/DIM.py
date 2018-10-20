@@ -114,6 +114,8 @@ class Enemy:
         Enemy.currHealth -= damage * num
     def switch_sprite(self):
         spNm = random.randint(1,2)
+        global enemySprt
+        global enemyScaled
         enemySprt = pygame.image.load("Sprites\enemy_%d.png" % spNm)
         enemyScaled = pygame.transform.scale(enemySprt, (scale(100, 100)))
         mineSurface.blit(imgMineScaled,(0,0))
@@ -214,7 +216,7 @@ while True:
         elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        #Check Resize                                
+        #Check Resize
         elif event.type == VIDEORESIZE:
             screen = pygame.display.set_mode(event.dict['size'], HWSURFACE|DOUBLEBUF|RESIZABLE)
             fake_screen.blit(screenSurface, (100, 100))
