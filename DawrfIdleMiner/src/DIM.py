@@ -42,18 +42,18 @@ myfont = pygame.font.SysFont("monospace", 16)
 #dwarfx=
 #dwarfy=
 
-#Variables
+#GlobalVariables
 down = False
 modifier = 1
-#def progressBar(defaultTime, modifier ):
-
 
 #Classes
+#Class to manage prgression and Prestige
 class Enviroment:
     zone = 0
     enemyHealth = 1  #scaling factor
     mine = 0
 
+#Class To manage inventory
 class Materials:
     gCount = 10
     wood = 0
@@ -61,21 +61,22 @@ class Materials:
     ancientTech = 0
     woodCost = 1
     ironCost = 5
-    def sell_wood(self):
+    def sell_wood(self):   #Sell all button
         Materials.gCount += ( Materials.wood * Materials.woodCost)
         Materials.wood = 0
-    def sell_iron(self):
+    def sell_iron(self):   #Sell all button
         Materials.gCount += (Materials.iron * Materials.ironCost)
         Materials.iron = 0
 
+#Class to manage Miner
 class Miner:
     num = 1
-    costRate = 1.07
-    cost = 10 * (costRate**(num-1))
+    costRate = 1.07   #Exponential factor used to calculate cost increase per miner purchased
+    cost = 10   #Baseprice
     def buy_miner(self):
         Miner.num = Miner.num + 1
         Materials.gCount = Materials.gCount - Miner.cost
-        Miner.cost = 10 * (Miner.costRate**Miner.num)
+        Miner.cost = 10 * (Miner.costRate**Miner.num) #New cost after purchase
         return
     def num_miner(self):
         return Miner.num
@@ -83,12 +84,13 @@ class Miner:
 class Warrior:
     num = 5
     costRate = 1.07
-    cost = 10 * (costRate**num)
+    cost = 10
     damage = 10
     def buy_warrior(self):
         Warrior.num += 1
         Materials.gCount -= Warrior.cost
         Warrior.cost = 10 * (Warrior.costRate**Warrior.num)
+        
 class Enemy:
     startHealth = random.randint(10,50)
     currHealth = startHealth
@@ -144,6 +146,7 @@ def mining(Miner, Materials):
     Materials.wood += Miner.num * 1
     Materials.iron += Miner.num * .5
 
+#funciton for scaling sprites
 def scale(x,y):
     global xMax
     global defaultX
@@ -166,17 +169,11 @@ while True:
     timebar.timeloop()
 
 
-    #globalTime += dt
-
-    #mining
-
-    #Progress bar loop
-    #Manages the length of the progress bar
+    #Functions that rely on progress bar completion
     if timebar.completion == 1:
         mining(Miner, Materials)
         #Doing damage
-        if enemy.currHealth <= 0:
-            enemy.death()
+        if enemy.currHealth > 0:
             enemy.do_damage(warrior.damage, warrior.num)
         if enemy.currHealth <= 0:
             enemy.death()
