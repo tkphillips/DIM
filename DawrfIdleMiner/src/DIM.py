@@ -44,20 +44,9 @@ myfont = pygame.font.SysFont("monospace", 16)
 #dwarfy=
 
 #Variables
-maxWidth = 312
-defaultTime = 5
-modifier = 1
-timeFull = defaultTime * modifier
-coefficient = maxWidth / timeFull
-timeProgress = 0
-dt = 0
-globalTime = 0
-outlineProgresBarx = 40
-outlineProgresBary = 340
 down = False
-enemyNum = 1
-
-
+width = 0
+modifier = 1
 #def progressBar(defaultTime, modifier ):
 
 
@@ -122,7 +111,34 @@ class Enemy:
         screen.blit(mineSurface, (scale(330,60)))
         screen.blit(enemyScaled, (scale(452, 155)))
 
-
+class Timebar:
+    maxWidth = 312
+    defaultTime = 5
+    modifier = 1
+    timeFull = defaultTime * modifier
+    coefficient = maxWidth / timeFull
+    timeProgress = 0
+    dt = 0
+    globalTime = 0
+    outlineProgresBarx = 40
+    outlineProgresBary = 340
+    completion = 0
+    def timeloop(self):
+        if Timebar.timeProgress < Timebar.timeFull:
+            Timebar.timeProgress += Timebar.dt
+            Timebar.timeFull = Timebar.defaultTime * Timebar.modifier
+            Timebar.coefficient = Timebar.maxWidth / Timebar.timeFull
+            Timebar.width = Timebar.timeProgress * Timebar.coefficient
+            if Timebar.timeProgress >= Timebar.timeFull:
+                Timebar.width = 0
+                Timebar.timeProgress = 0
+                if Timebar.timeFull >= .01:
+                    Timebar.width = Timebar.timeProgress * Timebar.coefficient
+                else:
+                    Timebar.width = Timebar.maxWidth
+                Timebar.completion = 1
+    def loopReset(self):
+        Timebar.completion = 0
 #functions
 def mining(Miner, Materials):
     Materials.wood += Miner.num * 1
@@ -146,8 +162,8 @@ while True:
     materials = Materials()
     enemy = Enemy()
     warrior = Warrior()
-
-
+    timebar = Timebar()
+    timebar.timeloop()
 
 
     #globalTime += dt
@@ -156,25 +172,15 @@ while True:
 
     #Progress bar loop
     #Manages the length of the progress bar
-    if timeProgress < timeFull:
-        timeProgress += dt
-        timeFull = defaultTime * modifier
-        coefficient = maxWidth / timeFull
-        width = timeProgress * coefficient
-        if timeProgress >= timeFull:
-            width = 0
-            timeProgress = 0
-            if timeFull >= .01:
-                width = timeProgress * coefficient
-            else:
-                width = maxWidth
-            mining(Miner, Materials)
-            #Doing damage
-            if enemy.currHealth <= 0:
-                enemy.death()
+    if timebar.completion == 1:
+        mining(Miner, Materials)
+        #Doing damage
+        if enemy.currHealth <= 0:
+            enemy.death()
             enemy.do_damage(warrior.damage, warrior.num)
-            if enemy.currHealth <= 0:
-                enemy.death()
+        if enemy.currHealth <= 0:
+            enemy.death()
+        loopReset()
 
 
 
