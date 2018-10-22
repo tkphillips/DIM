@@ -13,7 +13,6 @@ imgBackground = pygame.image.load("Sprites\Background.png")
 imgProgressBarOutline = pygame.image.load("Sprites\Progressbaroutline384x90.png")
 imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 imgButton = pygame.image.load("Sprites\Button96x48.png")
-imgProgressBar = pygame.image.load("Sprites\progressBar312x30.png")
 imgMine = pygame.image.load("Sprites\Basic_cave64x49.png")
 imgIcon = pygame.image.load("Sprites\DwarfMiner72x66.png")
 enemySprt = pygame.image.load("Sprites\enemy_1.png")
@@ -45,7 +44,6 @@ myfont = pygame.font.SysFont("monospace", 16)
 
 #Variables
 down = False
-width = 0
 modifier = 1
 #def progressBar(defaultTime, modifier ):
 
@@ -118,11 +116,12 @@ class Timebar:
     timeFull = defaultTime * modifier
     coefficient = maxWidth / timeFull
     timeProgress = 0
-    dt = 0
+    dt = 1
     globalTime = 0
     outlineProgresBarx = 40
     outlineProgresBary = 340
     completion = 0
+    width = 0
     def timeloop(self):
         if Timebar.timeProgress < Timebar.timeFull:
             Timebar.timeProgress += Timebar.dt
@@ -180,7 +179,7 @@ while True:
             enemy.do_damage(warrior.damage, warrior.num)
         if enemy.currHealth <= 0:
             enemy.death()
-        loopReset()
+            timebar.loopReset()
 
 
 
@@ -240,7 +239,7 @@ while True:
     #drawBackground
     screen.blit(imgBackgroundScaled, (0,0))
     #surfaces
-    croppedProgress = pygame.Surface((scale(width, 30)))
+    croppedProgress = pygame.Surface((scale(timebar.width, 30)))
     imgProgressBarOutlineSurface = pygame.Surface(scale(384,90), pygame.SRCALPHA, 32)
     mineSurface = pygame.Surface((scale(300, 200)))
     #scaling
