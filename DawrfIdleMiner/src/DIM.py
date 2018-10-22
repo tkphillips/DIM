@@ -116,7 +116,7 @@ class Timebar:
     timeFull = defaultTime * modifier
     coefficient = maxWidth / timeFull
     timeProgress = 0
-    dt = 1
+    dt = 0
     globalTime = 0
     outlineProgresBarx = 40
     outlineProgresBary = 340
@@ -128,6 +128,7 @@ class Timebar:
             Timebar.timeFull = Timebar.defaultTime * Timebar.modifier
             Timebar.coefficient = Timebar.maxWidth / Timebar.timeFull
             Timebar.width = Timebar.timeProgress * Timebar.coefficient
+            Timebar.dt = clock.tick(60) / float(1000)
             if Timebar.timeProgress >= Timebar.timeFull:
                 Timebar.width = 0
                 Timebar.timeProgress = 0
@@ -179,7 +180,7 @@ while True:
             enemy.do_damage(warrior.damage, warrior.num)
         if enemy.currHealth <= 0:
             enemy.death()
-            timebar.loopReset()
+        timebar.loopReset()
 
 
 
@@ -286,4 +287,3 @@ while True:
     #display update
     pygame.display.update()
     #clock update
-    dt = clock.tick(60) / float(1000)
