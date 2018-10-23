@@ -16,12 +16,13 @@ imgButton = pygame.image.load("Sprites\Button96x48.png")
 imgMine = pygame.image.load("Sprites\Basic_cave64x49.png")
 imgIcon = pygame.image.load("Sprites\DwarfMiner72x66.png")
 enemySprt = pygame.image.load("Sprites\enemy_1.png")
+imgWoodenPickaxe = pygame.image.load("Sprites\woodenpickaxe.png")
+imgIronPickaxe = pygame.image.load("Sprites\ironpickaxe.png")
 #window size and title
 screen = pygame.display.set_mode((defaultX, defaultY), HWSURFACE|DOUBLEBUF|RESIZABLE)
 fake_screen = screen.copy()
 pygame.display.set_caption('Dwarf Idle Miner')
 screenSurface = pygame.Surface((defaultX,defaultY))
-
 imgBackgroundScaled = pygame.transform.scale(imgBackground, (defaultX,defaultY))
 screenSurface.blit(imgBackgroundScaled, (0,0))
 pygame.display.set_icon(imgIcon)
@@ -54,6 +55,11 @@ class Enviroment:
     mine = 0
 class Modifiers:  #class to add buffs to Warriors and Miners
     miner1 = True
+    woodenPickaxe = False
+    def buy_woodenPick(self):
+        Materials.wood = Materials.wood - Materials.woodenPickaxeCost
+        Modifiers.woodenPickaxe = True
+        Timebar.modifier = timebar.modifier * .5
 #Class To manage inventory
 class Materials:
     gCount = 10
@@ -62,6 +68,7 @@ class Materials:
     ancientTech = 0
     woodCost = 1
     ironCost = 5
+    woodenPickaxeCost = 15
     def sell_wood(self):   #Sell all button
         Materials.gCount += ( Materials.wood * Materials.woodCost)
         Materials.wood = 0
@@ -197,27 +204,32 @@ while True:
     click = pygame.mouse.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if scale(526,320)[0] > mouse[0] > scale(430,320)[0] and scale(430,368)[1] > mouse[1] > scale(430,320)[1]:
+            if scale(526,0)[0] > mouse[0] > scale(430,0)[0] and scale(0,368)[1] > mouse[1] > scale(0,320)[1]:
                 if materials.gCount >= miner.cost and down == False:
                     miner.buy_miner()
                     down = True
 
 
     #sell Wood Button
-            elif scale((540+96),400)[0] > mouse[0] > scale(540,400)[0] and scale(540,(400+48))[1] > mouse[1] >  scale(540,400)[1]:
+            elif scale((540+96),0)[0] > mouse[0] > scale(540,0)[0] and scale(0,(400+48))[1] > mouse[1] >  scale(0,400)[1]:
                if materials.wood >= 1 and down == False:
                    materials.sell_wood()
                    down = True
 
        #sell iron Button
-            elif scale((430+96),400)[0] > mouse[0] > scale(430,400)[0] and scale(430,(400+48))[1] > mouse[1] > scale(430,400)[1]:
+            elif scale((430+96),0)[0] > mouse[0] > scale(430,0)[0] and scale(0,(400+48))[1] > mouse[1] > scale(0,400)[1]:
                if materials.iron >= 1 and down == False:
                    materials.sell_iron()
                    down = True
         #buy warrior
-            elif scale((540+96),320)[0] > mouse[0] > scale(540,320)[0] and scale(540,(320+48))[1] > mouse[1] > scale(540,320)[1]:
+            elif scale((540+96),0)[0] > mouse[0] > scale(540,0)[0] and scale(0,(320+48))[1] > mouse[1] > scale(0,320)[1]:
                if materials.gCount >= warrior.cost and down == False:
                    warrior.buy_warrior()
+                   down = True
+        #make wooden Pickaxe
+            elif scale((150+49),0)[0] > mouse[0] > scale(150,0)[0] and scale(0,(427+24))[1] > mouse[1] > scale(0,427)[1]:
+               if materials.wood >= materials.woodenPickaxeCost and down == False and modifiers.woodenPickaxe == False:
+                   modifiers.buy_woodenPick()
                    down = True
        #unpress if statement
         elif event.type == pygame.MOUSEBUTTONUP:
@@ -251,12 +263,16 @@ while True:
     button2Surface = pygame.Surface((scale(96, 48)))
     button3Surface = pygame.Surface((scale(96, 48)))
     button4Surface = pygame.Surface((scale(96, 48)))
+    button5Surface = pygame.Surface((scale(49, 24)))
+    woodenPickaxeSurface = pygame.Surface(scale(32,32), pygame.SRCALPHA, 32)
     #scaling
     imgProgressBarOutlineScaled = pygame.transform.scale(imgProgressBarOutline, (scale(384,90)))
     imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
     imgButtonScaled = pygame.transform.scale(imgButton, (scale(96,48)))
+    imgButtonScaledSmall = pygame.transform.scale(imgButton, (scale(49,24)))
     imgMineScaled = pygame.transform.scale(imgMine, (scale(300,200)))
     enemyScaled = pygame.transform.scale(enemySprt, (scale(100, 100)))
+    woodenPickaxeScaled = pygame.transform.scale(imgWoodenPickaxe, (scale(32, 32)))
     #drawSprites
     mineSurface.blit(imgMineScaled,(0,0))
     screen.blit(mineSurface, (scale(330,60)))
@@ -268,11 +284,15 @@ while True:
     button2Surface.blit(imgButtonScaled, (0,0))
     button3Surface.blit(imgButtonScaled, (0,0))
     button4Surface.blit(imgButtonScaled, (0,0))
+    button5Surface.blit(imgButtonScaledSmall, (0,0))
     screen.blit(button1Surface, (scale(430,320)))
     screen.blit(button2Surface, (scale(540,320)))
     screen.blit(button3Surface, (scale(430,400)))
     screen.blit(button4Surface, (scale(540,400)))
+    screen.blit(button5Surface, (scale(150,427)))
     screen.blit(enemyScaled, (scale(452, 155)))
+    woodenPickaxeSurface.blit(woodenPickaxeScaled, (0,0))
+    screen.blit(woodenPickaxeSurface, (scale(100,427)))
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(Materials.gCount)), 1, (0,0,0))
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
