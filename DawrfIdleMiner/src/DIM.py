@@ -52,7 +52,8 @@ class Enviroment:
     zone = 0
     enemyHealth = 1  #scaling factor
     mine = 0
-
+class Modifiers:  #class to add buffs to Warriors and Miners
+    miner1 = True
 #Class To manage inventory
 class Materials:
     gCount = 10
@@ -71,8 +72,13 @@ class Materials:
 #Class to manage Miner
 class Miner:
     num = 1
-    costRate = 1.07   #Exponential factor used to calculate cost increase per miner purchased
+    costRate = 1.1   #Exponential factor used to calculate cost increase per miner purchased
     cost = 10   #Baseprice
+    woodPro = 1
+    ironPro = .5
+    if Modifiers.miner1 == True:
+        woodPro *= 1.05
+        ironPro *= 1.05
     def buy_miner(self):
         Miner.num = Miner.num + 1
         Materials.gCount = Materials.gCount - Miner.cost
@@ -143,8 +149,8 @@ class Timebar:
         Timebar.completion = 0
 #functions
 def mining(Miner, Materials):
-    Materials.wood += Miner.num * 1
-    Materials.iron += Miner.num * .5
+    Materials.wood += Miner.num * Miner.woodPro
+    Materials.iron += Miner.num * Miner.ironPro
 
 #funciton for scaling sprites
 def scale(x,y):
@@ -166,6 +172,7 @@ while True:
     enemy = Enemy()
     warrior = Warrior()
     timebar = Timebar()
+    modifiers = Modifiers()
     timebar.timeloop()
 
 
@@ -271,7 +278,7 @@ while True:
     modifierText = myfont.render("Modifier: {0}".format((1/modifier)), 1, (0,0,0))
     minerText = myfont.render("Miners: {0}".format(miner.num), 1, (0,0,0))
     warriorText = myfont.render("Warriors: {0}".format(warrior.num), 1, (0,0,0))
-    woodText = myfont.render("Wood: {0}".format(materials.wood), 1, (0,0,0))
+    woodText = myfont.render("Wood: {0}".format(int(materials.wood)), 1, (0,0,0))
     ironText = myfont.render("Iron: {0}".format(int(materials.iron)), 1, (0,0,0))
     buyMinerText = myfont.render("Buy Miner Gold: {0:6.2f}".format(miner.cost), 1, (0,0,0))
     buyWarriorText = myfont.render("Buy Warrior Gold: {0:6.2f}".format(warrior.cost), 1, (0,0,0))
