@@ -90,7 +90,7 @@ class Warrior:
         Warrior.num += 1
         Materials.gCount -= Warrior.cost
         Warrior.cost = 10 * (Warrior.costRate**Warrior.num)
-        
+
 class Enemy:
     startHealth = random.randint(10,50)
     currHealth = startHealth
@@ -190,25 +190,25 @@ while True:
     click = pygame.mouse.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if scale(396,300)[0] > mouse[0] > scale(300,300)[0] and scale(300,348)[1] > mouse[1] > scale(300,300)[1]:
+            if scale(526,320)[0] > mouse[0] > scale(430,320)[0] and scale(430,368)[1] > mouse[1] > scale(430,320)[1]:
                 if materials.gCount >= miner.cost and down == False:
                     miner.buy_miner()
                     down = True
 
 
     #sell Wood Button
-            elif scale(246,0)[0] > mouse[0] > scale(150,0)[0] and scale(0,348)[1] > mouse[1] > scale(0,300)[1]:
+            elif scale((540+96),400)[0] > mouse[0] > scale(540,400)[0] and scale(540,(400+48))[1] > mouse[1] >  scale(540,400)[1]:
                if materials.wood >= 1 and down == False:
                    materials.sell_wood()
                    down = True
 
        #sell iron Button
-            elif scale(246,0)[0] > mouse[0] > scale(150,0)[0] and scale(0,423)[1] > mouse[1] > scale(0,375)[1]:
+            elif scale((430+96),400)[0] > mouse[0] > scale(430,400)[0] and scale(430,(400+48))[1] > mouse[1] > scale(430,400)[1]:
                if materials.iron >= 1 and down == False:
                    materials.sell_iron()
                    down = True
         #buy warrior
-            elif scale(396,0)[0] > mouse[0] > scale(300,0)[0] and scale(0,423)[1] > mouse[1] >  scale(0,375)[1]:
+            elif scale((540+96),320)[0] > mouse[0] > scale(540,320)[0] and scale(540,(320+48))[1] > mouse[1] > scale(540,320)[1]:
                if materials.gCount >= warrior.cost and down == False:
                    warrior.buy_warrior()
                    down = True
@@ -240,6 +240,10 @@ while True:
     croppedProgress = pygame.Surface((scale(timebar.width, 30)))
     imgProgressBarOutlineSurface = pygame.Surface(scale(384,90), pygame.SRCALPHA, 32)
     mineSurface = pygame.Surface((scale(300, 200)))
+    button1Surface = pygame.Surface((scale(96, 48)))
+    button2Surface = pygame.Surface((scale(96, 48)))
+    button3Surface = pygame.Surface((scale(96, 48)))
+    button4Surface = pygame.Surface((scale(96, 48)))
     #scaling
     imgProgressBarOutlineScaled = pygame.transform.scale(imgProgressBarOutline, (scale(384,90)))
     imgProgressBarScaled = pygame.transform.scale(imgProgressBar, (scale(312,30)))
@@ -253,10 +257,14 @@ while True:
     screen.blit(croppedProgress, (scale(78,370)))
     imgProgressBarOutlineSurface.blit(imgProgressBarOutlineScaled, (0,0))
     screen.blit(imgProgressBarOutlineScaled, (scale(42,340)))
-    screen.blit(imgButtonScaled, (scale(300,300)))
-    screen.blit(imgButtonScaled, (scale(150,300)))
-    screen.blit(imgButtonScaled, (scale(150,375)))
-    screen.blit(imgButtonScaled, (scale(300,375)))
+    button1Surface.blit(imgButtonScaled, (0,0))
+    button2Surface.blit(imgButtonScaled, (0,0))
+    button3Surface.blit(imgButtonScaled, (0,0))
+    button4Surface.blit(imgButtonScaled, (0,0))
+    screen.blit(button1Surface, (scale(430,320)))
+    screen.blit(button2Surface, (scale(540,320)))
+    screen.blit(button3Surface, (scale(430,400)))
+    screen.blit(button4Surface, (scale(540,400)))
     screen.blit(enemyScaled, (scale(452, 155)))
     #draw text
     goldText = myfont.render("Gold: {0}".format(int(Materials.gCount)), 1, (0,0,0))
